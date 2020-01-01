@@ -5,7 +5,7 @@ A LaTeX package to sanitize umlauts to be used directly in index entries for Mak
 
 ```
 The LaTeX package sanitize-umlaut
-Copyright (c) 2016 by Prof. Dr. Dr. Thomas F. Sturm
+Copyright (c) 2016-2020 by Prof. Dr. Dr. Thomas F. Sturm
 
 This work may be distributed and/or modified under the
 conditions of the LaTeX Project Public License, either version 1.3

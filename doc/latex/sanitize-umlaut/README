@@ -1,8 +1,8 @@
-%% The LaTeX package sanitize-umlaut - version 1.00 (2016/05/28)
+%% The LaTeX package sanitize-umlaut - version 1.10 (2020/01/01)
 %%
-%% --------------------------------------------------------------------------------------
-%% Copyright (c) 2016 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
-%% --------------------------------------------------------------------------------------
+%% -------------------------------------------------------------------------------------------
+%% Copyright (c) 2016-2020 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
+%% -------------------------------------------------------------------------------------------
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -17,7 +17,7 @@
 %% This work consists of all files listed in README
 %%
 
-The packages sanitizes umlauts to be used directly in index entries for
+The package sanitizes umlauts to be used directly in index entries for
 MakeIndex and friends with pdflatex. This means, that inside '\index' an umlaut
 can be used as "U or directly. In both cases, the letter is written as "U into
 the raw index file for correct processing with MakeIndex and pdflatex.

@@ -2,12 +2,12 @@
 % !TeX encoding=UTF-8
 % !TeX spellcheck=en_US
 %%
-%% The LaTeX package sanitize-umlaut - version 1.00 (2016/05/28)
+%% The LaTeX package sanitize-umlaut - version 1.10 (2020/01/01)
 %% sanitize-umlaut.tex: Manual
 %%
-%% --------------------------------------------------------------------------------------
-%% Copyright (c) 2016 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
-%% --------------------------------------------------------------------------------------
+%% -------------------------------------------------------------------------------------------
+%% Copyright (c) 2016-2020 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
+%% -------------------------------------------------------------------------------------------
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
@@ -27,8 +27,8 @@
 \usepackage{%
   sanitize-umlaut}
 
-\def\version{1.00}%
-\def\datum{2016/05/28}%
+\def\version{1.10}%
+\def\datum{2020/01/01}%
 
 \hypersetup{
   pdftitle={Manual for the sanitize-umlaut package},
@@ -87,7 +87,7 @@
 
 \clearpage
 \section{Purpose of the Package}%
-The packages sanitizes umlauts to be used directly in index entries for
+The package sanitizes umlauts to be used directly in index entries for
 |makeindex| and friends with |pdflatex|. This means, that inside |\index| an umlaut can
 be used as \myverb{"U} or \myverb{Ü}. In both cases, the letter is written
 as \myverb{"U} into the raw index file for correct processing with |makeindex|
@@ -95,7 +95,7 @@ and |pdflatex|.
 
 The package is intended
 \begin{itemize}
-\item for documents in german language using the babel package with a setting
+\item for documents in German language using the babel package with a setting
   identical or similar to \myverb{\usepackage[ngerman]{babel}}.
 \item for documents which are processed by |latex| or |pdflatex| (not |lualatex| or |xelatex|).
 \item for documents with an index which is processed using the
@@ -113,15 +113,51 @@ Another alternative is to replace MakeIndex by Xindy or another index
 processor.
 
 
+\section{Important Compatibility Informations}%
+
+\subsection{Past}
+Until 2018, the default encoding for \LaTeX\ files was 7-bit ASCII.
+For other encodings, packages like |inputenc| had to be loaded.
+Also, |inputenc| used to expand characters like umlauts during |\index| output.
+The package |sanitize-umlaut| version 1.00 replaced this expansion code
+for |\index| output to get \myverb{"U} instead of \myverb{Ü}, etc.
+
+\subsection{Present}
+Since April 2018, the default encoding for \LaTeX\ files has been changed to UTF-8.
+This is done by preloading the UTF-8 settings of the package |inputenc|
+by default \LaTeX, i.e. if you want to use UTF-8 (recommended!), you do not
+longer need to load |inputenc| inside your preamble.
+But, also the implementation of |inputenc| changed for UTF-8 (October 2019?).
+Nowadays, characters like umlauts are not longer expanded during |\index| output,
+but are preserved as is.
+Therefore, |sanitize-umlaut| version 1.00 \textbf{is not compatible} to
+|inputenc| with UTF-8 dating from 2019 or newer.
+
+|sanitize-umlaut| version 1.10 (or newer) patches some UTF-8 code of
+\LaTeX/|inputenc| to return and replace character expansion during |\index| output.
+This patch \textbf{is not compatible} to older versions of \LaTeX/|inputenc| (before October 2019).
+Therefore, if your \LaTeX\ distribution is not reasonable up to date, you
+should stay at version 1.00 of |sanitize-umlaut|.
+
+\subsection{Future}
+As always, the future is dark and difficult to see. Further changes of
+|inputenc| implementation may force further changes of |sanitize-umlaut|.
+Hopefully, this will not happen too soon or too often.
+Also, if some miracle happens, MakeIndex may be updated one day to
+recognize UTF-8 properly to make |sanitize-umlaut| superfluous.
+
+
 \section{Package Usage}%
 
 \subsection{Prerequisites}
-The source document needs some encoding by |inputenc| since |pdflatex|
+The source document may need some encoding by |inputenc| since |pdflatex|
 is assumed as engine. For example:
 
 \begin{dispListing}
-\usepackage[utf8]{inputenc}
+\usepackage[latin1]{inputenc}
 \end{dispListing}
+
+For |utf8| (UTF-8), modern \LaTeX\ does not need this package inclusion any more!
 
 Just some few encodings are supported by |sanitize-umlaut|.
 These are the most important for German language texts:
@@ -129,6 +165,7 @@ These are the most important for German language texts:
 \tcbox[center,size=minimal,enhanced,frame hidden,colback=red!10]{\begin{tabular}{>{\ttfamily}l>{\ttfamily}l}\toprule
 \textnormal{\bfseries encoding} & \textnormal{\bfseries recognized as}\\\midrule
 utf8 & utf8\\
+utf8-2018 & utf8-2018\\
 latin1, ansinew, cp1252 & latin1\\
 applemac & applemac\\\bottomrule
 \end{tabular}}
@@ -169,7 +206,7 @@ which are written to the \myverb{.idx} file.
 
 \subsection{Technical Information}
 
-The package uses \myverb{\inputencodingname} (set by the |inputencoding| package)
+The package uses \myverb{\inputencodingname} (set by \LaTeX\ and the |inputencoding| package)
 to determine the current encoding.
 
 The package redefines the \myverb{\@sanitize} macro at the begin of the
@@ -193,7 +230,7 @@ outside \myverb{\index}, strange things may happen.
 % arara: pdflatex
 \documentclass[a4paper,12pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}   % utf8 is default now
 \usepackage[ngerman]{babel}
 \usepackage{makeidx}
 \usepackage{sanitize-umlaut}
@@ -218,7 +255,7 @@ Test äöüÄÖÜß.
 % arara: pdflatex
 \documentclass[a4paper,12pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}   % utf8 is default now
 \usepackage[ngerman]{babel}
 \usepackage{makeidx}
 \usepackage{sanitize-umlaut}
@@ -242,7 +279,7 @@ Test äöüÄÖÜß.
 % arara: pdflatex
 \documentclass[a4paper,12pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}   % utf8 is default now
 \usepackage[ngerman]{babel}
 \usepackage[makeindex]{imakeidx}
 \makeindex[options=-s german.ist -g]
@@ -265,7 +302,7 @@ Test äöüÄÖÜß.
 % arara: pdflatex
 \documentclass[a4paper,12pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}   % utf8 is default now
 \usepackage[ngerman]{babel}
 \usepackage[makeindex]{imakeidx}
 \makeindex[options=-s german.ist -g]
@@ -289,7 +326,7 @@ Test äöüÄÖÜß.
 % arara: pdflatex
 \documentclass[a4paper,12pt]{article}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}   % utf8 is default now
 \usepackage[ngerman]{babel}
 \usepackage[makeindex]{imakeidx}
 \indexsetup{level=\section*,noclearpage}
