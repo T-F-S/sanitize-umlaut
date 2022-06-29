@@ -2,19 +2,19 @@
 % !TeX encoding=UTF-8
 % !TeX spellcheck=en_US
 %%
-%% The LaTeX package sanitize-umlaut - version 1.10 (2020/01/01)
+%% The LaTeX package sanitize-umlaut - version 1.2.0 (2022/06/29)
 %% sanitize-umlaut.tex: Manual
 %%
 %% -------------------------------------------------------------------------------------------
-%% Copyright (c) 2016-2020 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
+%% Copyright (c) 2016-2022 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
 %% -------------------------------------------------------------------------------------------
 %%
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
 %% of this license or (at your option) any later version.
 %% The latest version of this license is in
-%%   http://www.latex-project.org/lppl.txt
-%% and version 1.3 or later is part of all distributions of LaTeX
+%%   https://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
 %% version 2005/12/01 or later.
 %%
 %% This work has the LPPL maintenance status `author-maintained'.
@@ -27,8 +27,8 @@
 \usepackage{%
   sanitize-umlaut}
 
-\def\version{1.10}%
-\def\datum{2020/01/01}%
+\def\version{1.2.0}%
+\def\datum{2022/06/29}%
 
 \hypersetup{
   pdftitle={Manual for the sanitize-umlaut package},
@@ -52,7 +52,7 @@
   \footnote{Prof.~Dr.~Dr.~Thomas F.~Sturm, Institut f\"{u}r Mathematik und Informatik,
     Universit\"{a}t der Bundeswehr M\"{u}nchen, D-85577 Neubiberg, Germany;
      email: \href{mailto:thomas.sturm@unibw.de}{thomas.sturm@unibw.de}}\par\medskip
-\normalsize\url{http://www.ctan.org/pkg/sanitize-umlaut}\par
+\normalsize\url{https://www.ctan.org/pkg/sanitize-umlaut}\par
 \url{https://github.com/T-F-S/sanitize-umlaut}
 }
 \end{center}
@@ -112,7 +112,7 @@ An alternative would be to filter the resulting raw \myverb{.idx} index
 Another alternative is to replace MakeIndex by Xindy or another index
 processor.
 
-
+\clearpage
 \section{Important Compatibility Informations}%
 
 \subsection{Past}
@@ -139,6 +139,12 @@ This patch \textbf{is not compatible} to older versions of \LaTeX/|inputenc| (be
 Therefore, if your \LaTeX\ distribution is not reasonable up to date, you
 should stay at version 1.00 of |sanitize-umlaut|.
 
+With the 2022 June release of \LaTeX, characters defined via |utf8.def| are now
+defined as |\protected| macros. Therefore, |sanitize-umlaut| version 1.2.0 (or newer)
+patches some relevant parts of two-octets characters during |\index| back to
+pre 2022 June behaviour. Obviously, you loose |\protected| here, if you
+load |sanitize-umlaut|.
+
 \subsection{Future}
 As always, the future is dark and difficult to see. Further changes of
 |inputenc| implementation may force further changes of |sanitize-umlaut|.
@@ -147,6 +153,7 @@ Also, if some miracle happens, MakeIndex may be updated one day to
 recognize UTF-8 properly to make |sanitize-umlaut| superfluous.
 
 
+\clearpage
 \section{Package Usage}%
 
 \subsection{Prerequisites}
