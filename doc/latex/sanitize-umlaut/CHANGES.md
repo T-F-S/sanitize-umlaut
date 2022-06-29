@@ -17,6 +17,15 @@ and this project adheres to
 
 
 
+## [1.2.1] - 2022-06-29
+
+### Fixed
+- The implementation of 1.2.0 changed UTF8 characters globally, not locally
+    inside `\index`. The fix works locally as intended and only affects
+    characters with UTF8-encoding C3..
+
+
+
 ## [1.2.0] - 2022-06-29
 
 ### Changed

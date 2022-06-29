@@ -1,4 +1,4 @@
-%% The LaTeX package sanitize-umlaut - version 1.2.0 (2022/06/29)
+%% The LaTeX package sanitize-umlaut - version 1.2.1 (2022/06/29)
 %% sanitize-umlaut.sty: Sanitize umlauts for makeindex
 %%
 %% -------------------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
 %% This work consists of all files listed in README
 %%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{sanitize-umlaut}[2022/06/29 version 1.2.0 sanitize umlauts]
+\ProvidesPackage{sanitize-umlaut}[2022/06/29 version 1.2.1 sanitize umlauts]
 
 \def\sanitize@unicode@char#1#2{%
   \@namedef{u8:\detokenize{#1}}{#2}%
@@ -36,17 +36,11 @@
 \begingroup
 \catcode`\~13
 \catcode`\"12
-\def\sanitize@umlaut@UTFviii@loop{%
-  \uccode`\~\count@
+\gdef\sanitize@umlaut@local@UTFviii@redefinition{%
+  \def\UTFviii@tmp{\edef~{\noexpand\sanitize@umlaut@UTFviii@two@octets\noexpand~}}%
+  \uccode`\~"C3%
   \uppercase\expandafter{\UTFviii@tmp}%
-  \advance\count@\@ne
-  \ifnum\count@<\@tempcnta
-  \expandafter\sanitize@umlaut@UTFviii@loop
-  \fi}
-    \count@"C2
-    \@tempcnta"E0
-    \def\UTFviii@tmp{\xdef~{\noexpand\sanitize@umlaut@UTFviii@two@octets\noexpand~}}
-\sanitize@umlaut@UTFviii@loop
+}
 \endgroup
 % END: patch for 'utf8.def'
 
@@ -55,7 +49,7 @@
 \catcode`\"=12
 
 \gdef\sanitize@umlaut@utfviii{%
-  \let\UTFviii@two@octets\sanitize@umlaut@UTFviii@two@octets%
+  \sanitize@umlaut@local@UTFviii@redefinition%
   \sanitize@unicode@char{^^c3^^a4}{"a}%
   \sanitize@unicode@char{^^c3^^b6}{"o}%
   \sanitize@unicode@char{^^c3^^bc}{"u}%

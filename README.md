@@ -1,4 +1,4 @@
-# The LaTeX package sanitize-umlaut - version 1.2.0 (2022/06/29)
+# The LaTeX package sanitize-umlaut - version 1.2.1 (2022/06/29)
 
 
 > Copyright (c) 2016-2022 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
