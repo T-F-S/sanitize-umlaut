@@ -1,7 +1,7 @@
-# The LaTeX package sanitize-umlaut - version 1.2.1 (2022/06/29)
+# The LaTeX package sanitize-umlaut - version 1.3.0 (2023/05/15)
 
 
-> Copyright (c) 2016-2022 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
+> Copyright (c) 2016-2023 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
 
 > This work may be distributed and/or modified under the
 > conditions of the LaTeX Project Public License, either version 1.3

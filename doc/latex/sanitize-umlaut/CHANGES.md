@@ -17,6 +17,16 @@ and this project adheres to
 
 
 
+## [1.3.0] - 2023-05-15
+
+### Added
+- Support for lualatex and xelatex
+
+### Changed
+- The style file `sanitize-umlaut.sty` is UTF-8 encoded now and contains umlauts
+
+
+
 ## [1.2.1] - 2022-06-29
 
 ### Fixed
