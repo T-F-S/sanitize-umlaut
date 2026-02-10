@@ -1,5 +1,6 @@
 # The LaTeX package sanitize-umlaut - version 1.3.0 (2023/05/15)
 
+[![CTAN](https://img.shields.io/ctan/v/sanitize-umlaut.svg)](https://www.ctan.org/pkg/sanitize-umlaut)
 
 > Copyright (c) 2016-2023 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
 
