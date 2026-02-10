@@ -1,0 +1,4 @@
+actual '='                             %  instead of @
+quote  '!'                             %  instead of "
+level  '>'                             %  instead of !
+icu_locale "de@collation=phonebook"    %  remove for lexical sorting DIN 5007-1

@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on
-[Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+[Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to
 [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
@@ -14,6 +14,22 @@ and this project adheres to
 ### Removed
 ### Fixed
 ### Security
+
+
+
+## [1.4.0] - 2026-02-10
+
+### Added
+- Description of nearly drop-in replacement of `makeindex` and `sanitize-umlaut`
+    by `upmendex`
+
+### Changed
+- `CHANGES.md` renamed to `CHANGELOG.md` following https://keepachangelog.com/en/1.1.0/
+- `\AtBeginDocument` replaced by `\AddToHook{begindocument}`
+- `inputenc` references removed
+
+### Fixed
+- Documentation produced with `minted2` instead of `minted` (currently not compatible to Python>=3.14)
 
 
 

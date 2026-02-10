@@ -7,10 +7,10 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[english]{babel}
 \RequirePackage{lmodern,parskip,array}
-\RequirePackage[svgnames,table,hyperref]{xcolor}
+\RequirePackage[svgnames,table]{xcolor}
 \RequirePackage{tikz}
 \RequirePackage{varioref}
-\RequirePackage[pdftex,bookmarks,raiselinks,pageanchor,hyperindex,colorlinks]{hyperref}
+\RequirePackage[pdftex,bookmarks,raiselinks,pageanchor,hyperindex=false,colorlinks]{hyperref}
 \RequirePackage{varwidth,cleveref,incgraph}
 
 \RequirePackage[a4paper,left=2.5cm,right=2.5cm,top=1.5cm,bottom=1.5cm,
@@ -31,6 +31,7 @@
 \RequirePackage{lipsum}
 \RequirePackage[extendedchars,encoding,filenameencoding=utf-8]{grffile}
 
+\RequirePackage{minted2}% minted currently broken with Python 3.14
 \RequirePackage{tcolorbox}
 
 \tcbuselibrary{skins,xparse,minted,breakable,documentation,raster}

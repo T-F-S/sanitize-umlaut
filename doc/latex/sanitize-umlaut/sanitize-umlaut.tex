@@ -2,11 +2,11 @@
 % !TeX encoding=UTF-8
 % !TeX spellcheck=en_US
 %%
-%% The LaTeX package sanitize-umlaut - version 1.3.0 (2023/05/15)
+%% The LaTeX package sanitize-umlaut - version 1.4.0 (2026/02/10)
 %% sanitize-umlaut.tex: Manual
 %%
 %% -------------------------------------------------------------------------------------------
-%% Copyright (c) 2016-2023 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
+%% Copyright (c) 2016-2026 by Prof. Dr. Dr. Thomas F. Sturm <thomas dot sturm at unibw dot de>
 %% -------------------------------------------------------------------------------------------
 %%
 %% This work may be distributed and/or modified under the
@@ -15,11 +15,11 @@
 %% The latest version of this license is in
 %%   https://www.latex-project.org/lppl.txt
 %% and version 1.3c or later is part of all distributions of LaTeX
-%% version 2005/12/01 or later.
+%% version 2008 or later.
 %%
 %% This work has the LPPL maintenance status `author-maintained'.
 %%
-%% This work consists of all files listed in README
+%% This work consists of all files listed in README.md
 %%
 \documentclass[a4paper,11pt]{ltxdoc}
 
@@ -27,8 +27,8 @@
 \usepackage{%
   sanitize-umlaut}
 
-\def\version{1.3.0}%
-\def\datum{2023/05/15}%
+\def\version{1.4.0}%
+\def\datum{2026/02/10}%
 
 \hypersetup{
   pdftitle={Manual for the sanitize-umlaut package},
@@ -36,6 +36,7 @@
   pdfsubject={sanitize umlauts for makeindex},
   pdfkeywords={index, umlauts, makeindex, pdflatex}
 }
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -110,7 +111,7 @@ package.
 
 An alternative would be to filter the resulting raw \myverb{.idx} index
 \emph{before} |makeindex| is applied to create the final \myverb{.ind} index.
-Another alternative is to replace MakeIndex by Xindy or another index
+Another alternative is to replace MakeIndex by Upmendex or another index
 processor.
 
 \clearpage
@@ -151,11 +152,15 @@ with a different approach. Here, |\index| is patched such that its argument
 is processed to replace umlauts.
 
 \subsection{Future}
-As always, the future is dark and difficult to see. Further changes of
-|inputenc| implementation may force further changes of |sanitize-umlaut|.
-Hopefully, this will not happen too soon or too often.
-Also, if some miracle happens, MakeIndex may be updated one day to
-recognize UTF-8 properly to make |sanitize-umlaut| superfluous.
+As always, the future is uncertain and difficult to predict. Further changes to
+the |inputenc| implementation may necessitate additional changes to
+|sanitize-umlaut|. Hopefully, this will not occur too soon or too frequently.
+
+It is also conceivable that, at some point, MakeIndex may be updated to properly
+recognize UTF-8, rendering |sanitize-umlaut| obsolete. More likely, however, is
+that another index processor will eventually replace MakeIndex.
+
+See Section~\ref{upmendex} for |upmendex| as a candidate for a nearly drop-in replacement.
 
 
 \clearpage
@@ -252,7 +257,6 @@ for |pdflatex|. A very rough figure is approximately a plus of 0.8 seconds per
 % arara: pdflatex
 \documentclass[a4paper,12pt]{article}
 \usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}   % utf8 is default now
 \usepackage[ngerman]{babel}
 \usepackage{makeidx}
 \usepackage{sanitize-umlaut}
@@ -277,7 +281,6 @@ Test äöüÄÖÜß.
 % arara: pdflatex
 \documentclass[a4paper,12pt]{article}
 \usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}   % utf8 is default now
 \usepackage[ngerman]{babel}
 \usepackage{makeidx}
 \usepackage{sanitize-umlaut}
@@ -301,7 +304,6 @@ Test äöüÄÖÜß.
 % arara: pdflatex
 \documentclass[a4paper,12pt]{article}
 \usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}   % utf8 is default now
 \usepackage[ngerman]{babel}
 \usepackage[makeindex]{imakeidx}
 \makeindex[options=-s german.ist -g]
@@ -324,7 +326,6 @@ Test äöüÄÖÜß.
 % arara: pdflatex
 \documentclass[a4paper,12pt]{article}
 \usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}   % utf8 is default now
 \usepackage[ngerman]{babel}
 \usepackage[makeindex]{imakeidx}
 \makeindex[options=-s german.ist -g]
@@ -348,7 +349,6 @@ Test äöüÄÖÜß.
 % arara: pdflatex
 \documentclass[a4paper,12pt]{article}
 \usepackage[T1]{fontenc}
-%\usepackage[utf8]{inputenc}   % utf8 is default now
 \usepackage[ngerman]{babel}
 \usepackage[makeindex]{imakeidx}
 \indexsetup{level=\section*,noclearpage}
@@ -398,6 +398,91 @@ Test äöüÄÖÜß.
 \printindex[personen]
 \end{document}
 \end{fullexample}
+
+
+\clearpage
+\section{Nearly Drop-in Replacement by Upmendex}\label{upmendex}
+
+The purpose of this package is to provide the missing capability of |makeindex|
+to handle umlauts directly. As an alternative, other index processors such as
+|xindex| or |upmendex| can be used, since they natively support UTF-8. While
+|xindex| follows a different approach, |upmendex| is largely backward compatible
+with |makeindex|.
+
+To use |upmendex| as a nearly drop-in replacement for |makeindex| together with |sanitize-umlaut|,
+the following steps are required:
+\begin{itemize}
+\item All |\index| macros must use direct umlauts and never the |babel| shorthands;
+   that is, always |\index{überall}| and never |\index{"überall}|.
+\item Do not load |sanitize-umlaut|.
+\item Do not use the |-g| option with |upmendex|, as it has a different meaning there.
+\item Choose the desired sorting rule:
+\begin{itemize}
+\item DIN 5007-1 (lexical sorting, sorting |ä| like |a|) is the default.
+  In this case, the style file |german.ist| can be used as before.
+\item DIN 5007-2 (phonebook sorting, sorting |ä| like |ae|), which is used
+  by |makeindex|. In this case, add |icu_locale "de@collation=phonebook"| to the
+  style file; see |upgerman.ist| below.
+\end{itemize}
+\end{itemize}
+
+
+\medskip
+
+\tcbinputlisting{docexample,listing file=upgerman.ist,listing only,minted style=colorful,
+  title={file |"upgerman.ist"| for upmendex}}
+
+\medskip
+
+Currently, |upmendex| is not as well supported as |makeindex|. The main drawbacks are:
+\begin{itemize}
+\item |upmendex| is not included in the list of commands allowed for
+  restricted shell execution (in \TeX Live 2025).
+  % kpsewhich -expand-var '$shell_escape_commands'
+  Therefore, invoking it from \LaTeX\ requires |-shell-escape|.
+\item |upmendex| is not supported by |imakeidx|. The following example shows
+  how |imakeidx| can be patched to work with |upmendex|.
+\item |upmendex| is not yet supported by |arara|. However, a local rule for
+  |upmendex| can be added, and official support is currently under consideration.
+\end{itemize}
+
+Within these limitations and with only minor adaptations, |makeindex| together
+with |sanitize-umlaut| can be replaced by |upmendex|, and vice versa.
+
+The following example demonstrates the use of a patched |imakeidx| setup with |upmendex|.
+
+\begin{fullexample}{run arara}
+% !TeX encoding=UTF-8
+% arara: pdflatex: { shell: yes }
+\documentclass[a4paper,12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{imakeidx}
+\makeatletter
+\def\imki@progdefault{upmendex}%  patch imakeidx
+\def\imki@program{upmendex}%      patch imakeidx
+\makeatother
+\indexsetup{level=\section*,noclearpage}
+\makeindex[name=personen,title=Personenregister,options=-s upgerman.ist]
+\makeindex[name=allgemein,title=Allgemeines Register,options=-s upgerman.ist]
+% \usepackage{sanitize-umlaut}%  do NOT use sanitize-umlaut
+\begin{document}
+\section{Example with multiple indexes}
+Test äöüÄÖÜß.
+\index[personen]{Huber, Hans}    \index[personen]{Hübner, Jörg}
+\index[allgemein]{Aber}          \index[allgemein]{Arg}
+\index[allgemein]{Ärger}         \index[allgemein]{Ofen}
+\index[allgemein]{Ö - wie schön} \index[allgemein]{oberhalb}
+\index[allgemein]{Ufer}          \index[allgemein]{Übermaß}
+\index[allgemein]{Latex=\LaTeX}  \index[allgemein]{Ärger>Index}
+Test äöüÄÖÜß.
+\clearpage
+\printindex[allgemein]
+\printindex[personen]
+\end{document}
+\end{fullexample}
+
+
 
 
 \end{document}
